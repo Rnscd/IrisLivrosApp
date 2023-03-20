@@ -40,7 +40,7 @@ class FakeBooksApi : BooksApi {
     }
 
     override suspend fun searchBooks(query: String, maxResults: Int): Response<BooksDto> {
-        TODO("Not yet implemented")
+        return Response.success(BooksDto(FakeDataSource.books))
     }
 
     override suspend fun getBook(query: String): Response<Book> {

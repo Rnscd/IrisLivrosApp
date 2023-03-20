@@ -10,11 +10,15 @@ object FakeDataSource {
     val books = listOf(
         Book(
             "1",
-            VolumeInfo(Thumbnails("url1"), "title2")
+            VolumeInfo(Thumbnails("url1"), "title1",1,
+                "description1", "language1", listOf<String>("author1, author2")
+            )
         ),
         Book(
             "2",
-            VolumeInfo(Thumbnails("url2"), title = "title2")
+            VolumeInfo(Thumbnails("url2"), "title2",2,
+                "description2", "language2", listOf<String>("author3, author4")
+            )
         )
     )
 
@@ -22,10 +26,11 @@ object FakeDataSource {
 
     val dtoNoBooks = BooksDto(null)
 
-    val images: List<Pair<String, String>> = books.mapNotNull {
+    val images: List<Triple<String, String, String>> = books.mapNotNull {
         val titles = it.volumeInfo.title
         val pics = it.volumeInfo.imageLinks!!.httpsThumbnail
-        Pair(titles, pics)}
+        val id = it.id
+        Triple(titles, pics, id)}
 
     /*
       data.books?.let { books ->

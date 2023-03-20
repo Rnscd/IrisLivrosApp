@@ -1,7 +1,16 @@
 <resources>
-    <string name="app_name">Iris Livros</string>
-    <string name="connection_error">Connection error</string>
+
+    <string name="app_name" translatable="false">Iris Livros</string>
     <string name="no_results">No results.</string>
-    <string name="search">Search…</string>
+    <string name="search">Search</string>
     <string name="refresh">Refresh</string>
+    <string name="connection_error">No connection</string>
+    <string name="pages">Pages: \u0020  </string>
+    <string name="language">Language:  \u0020 </string>
+
+
+    <!-- content descriptions -->
+    <string name="backbutton">back</string>
+    <string name="bookcover">cover of </string>
+
 </resources>

@@ -11,10 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -25,7 +28,7 @@ import com.rnscd.irislivros.R
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun BooksDetailScreen(onBack: (String) -> Unit) {
+fun BooksDetailScreen(bookId: String) {
 
     val viewModel: BooksViewModel = viewModel(factory = BooksViewModel.Factory)
 
@@ -33,7 +36,9 @@ fun BooksDetailScreen(onBack: (String) -> Unit) {
 
     when (detailUiState) {
         DetailUiState.Error -> ErrorScreen(
-            onRefreshContent = {  }
+            onRefreshContent = {
+                viewModel.getBookInfo(bookId)
+            }
         )
         DetailUiState.Loading -> LoadingScreen()
 
@@ -57,9 +62,9 @@ fun DetailsColumn(volumeInfo: VolumeInfo) {
                     .build(),
                 error = painterResource(id = R.drawable.ic_broken_image),
                 placeholder = painterResource(id = R.drawable.loading_img),
-                contentDescription = "Photo",
+                contentDescription = null,
                 modifier = Modifier
-                    .height(220.dp),
+                    .height(220.dp).width(150.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column() {
@@ -83,14 +88,20 @@ fun DetailsColumn(volumeInfo: VolumeInfo) {
 
                 volumeInfo.pageCount?.let {
                     Text(
-                        text = "Páginas: $it",
+                        text = buildString {
+                            append(stringResource(R.string.pages))
+                            append(it)
+                        },
                         fontSize = 15.sp,
                         color = Color.Gray
                     )
                 }
                 volumeInfo.language?.let {
                     Text(
-                        text = "Lingua: $it",
+                        text = buildString {
+                            append(stringResource(R.string.language))
+                            append(it)
+    },
                         fontSize = 15.sp,
                         color = Color.Gray
 
@@ -100,12 +111,12 @@ fun DetailsColumn(volumeInfo: VolumeInfo) {
             }
         }
         volumeInfo.description?.let {
+            val strippedText = HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
             Text(
-            text = it,
+                text = strippedText,
                 textAlign = TextAlign.Justify,
                 fontSize = 18.sp,
-            modifier = Modifier
-                .padding(2.dp)
+                modifier = Modifier.padding(2.dp)
             )
         }
     }

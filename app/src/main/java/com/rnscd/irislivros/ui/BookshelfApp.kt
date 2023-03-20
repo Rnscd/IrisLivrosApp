@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,7 +36,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.rnscd.irislivros.R
-
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -73,7 +73,7 @@ fun BookshelfApp(
                 }
             } else{
                 viewModel.getBookInfo(bookId)
-                BooksDetailScreen { id -> bookId = id }
+                BooksDetailScreen(bookId)
             }
         }
     }
@@ -116,7 +116,9 @@ fun BookTopBar(onBooksSearch: (String) -> Unit, onBack: (String) -> Unit, bookId
                     onClick = { onBack("0") },
                     modifier = Modifier.padding(end = 4.dp)
                 ) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = stringResource(
+                                            R.string.backbutton)
+                                        )
                 }
             }
             Text(
@@ -210,7 +212,10 @@ fun PhotoCard(photo: String, title: String, modifier: Modifier = Modifier, bookI
                     .build(),
                 error = painterResource(id = R.drawable.ic_broken_image),
                 placeholder = painterResource(id = R.drawable.loading_img),
-                contentDescription = "Photo",
+                contentDescription = buildString {
+        append(stringResource(R.string.bookcover))
+        append(title)
+    },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(220.dp),

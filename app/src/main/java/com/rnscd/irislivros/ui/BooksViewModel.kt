@@ -26,7 +26,7 @@ class BooksViewModel(
         getBooksImages()
     }
 
-    fun getBooksImages(query: String = "miami") {
+    fun getBooksImages(query: String = "Android") {
         if (query.isEmpty()) return
         viewModelScope.launch {
             _booksUiState.value = BooksUiState.Loading
@@ -37,7 +37,7 @@ class BooksViewModel(
         }
     }
 
-    fun getBookInfo(id: String = ""){
+    fun getBookInfo(id: String = "0"){
         viewModelScope.launch {
             _detailUiState.value = DetailUiState.Loading
             val result = booksRepository.getBookInfo(id)

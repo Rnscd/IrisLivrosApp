@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connection_error">Sem conexão</string>
+    <string name="no_results">Sem resultados.</string>
+    <string name="search">Pesquisar</string>
+    <string name="refresh">Atualizar</string>
+    <string name="pages">"Páginas: \u0020 "</string>
+    <string name="language">"Língua: \u0020 "</string>
+
+
+    <string name="backbutton">voltar</string>
+    <string name="bookcover">capa de</string>
+</resources>

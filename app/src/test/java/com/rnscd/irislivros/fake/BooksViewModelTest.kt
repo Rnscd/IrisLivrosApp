@@ -64,7 +64,7 @@ class BooksViewModelTest {
             val booksViewModel = BooksViewModel(booksRepository = fakeRepository)
             val state = booksViewModel.booksUiState.value
             fakeRepository.returnNull = false
-            booksViewModel.getBooksImages("miami")
+            booksViewModel.getBooksImages("kotlin")
             assertNotEquals(
                 state,
                 booksViewModel.booksUiState.value
@@ -78,7 +78,7 @@ class BooksViewModelTest {
             val booksViewModel = BooksViewModel(booksRepository = fakeRepository)
             val state = booksViewModel.booksUiState.value
             fakeRepository.returnEmpty = false
-            booksViewModel.getBooksImages("miami")
+            booksViewModel.getBooksImages("kotlin")
             assertNotEquals(
                 state,
                 booksViewModel.booksUiState.value

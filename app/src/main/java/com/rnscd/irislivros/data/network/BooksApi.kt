@@ -10,7 +10,7 @@ interface BooksApi {
 
     @GET("volumes")
     suspend fun searchBooks(
-        @Query("q") query: String = "cicero",
+        @Query("q") query: String = "kotlin",
         @Query("maxResults") maxResults: Int = 40
     ): Response<BooksDto>
 
